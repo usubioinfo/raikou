@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "sourceMap": true,
+      "outDir": "dist",
+      "baseUrl": "src",
+      "paths": {
+        "@services/*": ["services/*"],
+        "@routes/*": ["routes/*"],
+        "@config/*": ["config/*"],
+        "@interfaces/*": ["interfaces/*"],
+        "@models/*": ["models/*"],
+        "@utils/*": ["utils/*"],
+        "@dbtest/*": ["dbtest/*"],
+        "@validate/*": ["validate/*"],
+        "@logger/*": ["logger/*"],
+        "@classes/*": ["classes/*"]
+      },
+      "noImplicitAny": true,
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitReturns": true,
+      "noUnusedLocals": false,
+    },
+    "include": [
+      "src/**/*.ts",
+      "src/*.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+}
