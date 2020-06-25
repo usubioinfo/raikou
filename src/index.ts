@@ -40,7 +40,7 @@ app.get(`${apiPrefix}/image/:imgName([^/]+/[^/]+)`, (req: Request, res: Response
     .then((data: any) => {
       res.writeHead(200, {'Content-Type': 'image/png'});
       res.end(data);
-    }).catch(err => {
+    }).catch((err: any) => {
       console.log(err);
       res.send('');
     });
