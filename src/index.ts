@@ -21,6 +21,7 @@ app.use(helmet());
 const apiPrefix = process.env.API_PREFIX;
 
 app.get(`${apiPrefix}/image/:imgName([^/]+/[^/]+)`, (req: Request, res: Response) => {
+  console.log(process.env.IMG_PATH + req.params.imgName);
   const height: number = parseInt(req.query.height as string);
   const width: number = parseInt(req.query.width as string);
 
