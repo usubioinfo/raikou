@@ -20,8 +20,50 @@ app.use(helmet());
 
 const apiPrefix = process.env.API_PREFIX;
 
-app.get(`${apiPrefix}/image/:imgName([^/]+/[^/]+)`, (req: Request, res: Response) => {
-  console.log(process.env.IMG_PATH + req.params.imgName);
+app.get(`${apiPrefix}/image/aspect/:imgName([^/]+/[^/]+)`, async (req: Request, res: Response) => {
+  const anchor: string | null = req.query.anchor as string | null;
+  const heightConstant: number = parseInt(req.query.height as string);
+  const widthConstant: number = parseInt(req.query.width as string);
+
+  const image = sharp(`${process.env.IMG_PATH}/${req.params.imgName}`);
+
+  const metadata = await image.metadata();
+
+  let resizeObject = {
+    width: metadata.width,
+    height: metadata.height
+  }
+
+  if (!resizeObject.width || !resizeObject.height || !metadata.width || !metadata.height) {
+    return res.status(404);
+  }
+
+  if (anchor && anchor === 'height') {
+    resizeObject.width = Math.ceil((resizeObject.height / heightConstant) * widthConstant);
+  }
+
+  if (anchor && anchor === 'width') {
+    resizeObject.height = Math.ceil((resizeObject.width / widthConstant) * heightConstant);
+  }
+
+  console.log(resizeObject);
+
+  if (metadata.width >= metadata.height) {
+    resizeObject.height = Math.ceil((resizeObject.width / widthConstant) * heightConstant);
+  } else if (metadata.height >= metadata.width) {
+    resizeObject.width = Math.ceil((resizeObject.height / heightConstant) * widthConstant);
+  }
+
+  console.log(resizeObject);
+
+  const imgData = await image.resize(resizeObject).sharpen().toBuffer();
+
+  res.writeHead(200, {'Content-Type': 'image/png'});
+  return res.end(imgData);
+});
+
+app.get(`${apiPrefix}/image/raw/:imgName([^/]+/[^/]+)`, (req: Request, res: Response) => {
+  console.log(`${process.env.IMG_PATH}/${req.params.imgName}`);
   const height: number = parseInt(req.query.height as string);
   const width: number = parseInt(req.query.width as string);
 
