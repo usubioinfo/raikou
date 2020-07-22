@@ -9,16 +9,9 @@
       "outDir": "dist",
       "baseUrl": "src",
       "paths": {
-        "@services/*": ["services/*"],
-        "@routes/*": ["routes/*"],
-        "@config/*": ["config/*"],
-        "@interfaces/*": ["interfaces/*"],
-        "@models/*": ["models/*"],
-        "@utils/*": ["utils/*"],
-        "@dbtest/*": ["dbtest/*"],
-        "@validate/*": ["validate/*"],
-        "@logger/*": ["logger/*"],
-        "@classes/*": ["classes/*"]
+        "@img-processing/*": ["img-processing/*"],
+        "@util/*": ["util/*"],
+        "@validate/*": ["validate/*"]
       },
       "noImplicitAny": true,
       "forceConsistentCasingInFileNames": true,
