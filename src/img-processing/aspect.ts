@@ -6,6 +6,21 @@ import { validateDimensions } from '@validate/dimensions.validate';
 
 export const processAspectImg = async (req: Request, res: Response) => {
   const anchor: string | null = req.query.a as string | null;
+  // Possible values of t, r, l, or b (top, right, left, or bottom).
+  const center: string | null = req.query.c as string | null;
+  const centerValues = ['t', 'r', 'l', 'b'];
+  type Dict = { [key: string]: string}
+  const centerValueMap: Dict = {
+    't': 'top',
+    'b': 'bottom',
+    'l': 'left',
+    'r': 'right'
+  }
+
+  if (center && !centerValues.includes(center)) {
+    console.log(404);
+    return res.sendFile(`${process.env.IMG_PATH}/${process.env.IMG404}`);
+  }
 
   if (!validateDimensions(req.query.w as string | null, req.query.h as string | null)) {
     console.log(404);
@@ -25,7 +40,8 @@ export const processAspectImg = async (req: Request, res: Response) => {
 
   let resizeObject = {
     width: metadata.width,
-    height: metadata.height
+    height: metadata.height,
+    position: center ? centerValueMap[center] as string : 'centre'
   }
 
   if (anchor && anchor === 'height') {
