@@ -8,19 +8,19 @@ export const processRawImg = async (req: Request, res: Response) => {
   const height: number = parseInt(req.query.h as string);
   const width: number = parseInt(req.query.w as string);
 
-  const center: string | null = req.query.c as string | null;
-  const centerValues = ['t', 'r', 'l', 'b'];
+  let center: string | null = req.query.c as string | null;
+  const centerValues = ['t', 'r', 'l', 'b', 'c'];
   type Dict = { [key: string]: string}
   const centerValueMap: Dict = {
     't': 'top',
     'b': 'bottom',
     'l': 'left',
-    'r': 'right'
+    'r': 'right',
+    'c': 'centre' // British people, amiright?
   }
 
   if (center && !centerValues.includes(center)) {
-    console.log(404);
-    return res.sendFile(`${process.env.IMG_PATH}/${process.env.IMG404}`);
+    center = 'c';
   }
 
   let resizeObject: {height?: number, width?: number, position?: string} = {};
