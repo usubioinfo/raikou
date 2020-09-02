@@ -3,7 +3,16 @@ import sharp from 'sharp';
 
 import { Logger } from '@util/logger';
 
+import { rotateImg } from '@img-processing/operations/rotate';
+
 export const processRawImg = async (req: Request, res: Response) => {
+  let image = sharp(`${process.env.IMG_PATH}/${req.params.imgName}`);
+
+  if (req.query['ro']) {
+    const rotatedImg = await rotateImg(image, req);
+    image = rotatedImg ? rotatedImg : image;
+  }
+
   console.log(`${process.env.IMG_PATH}/${req.params.imgName}`);
   const height: number = parseInt(req.query.h as string);
   const width: number = parseInt(req.query.w as string);
@@ -37,7 +46,7 @@ export const processRawImg = async (req: Request, res: Response) => {
     resizeObject['position'] = centerValueMap[center];
   }
 
-  sharp(`${process.env.IMG_PATH}/${req.params.imgName}`)
+  image
     .resize(resizeObject)
     .toBuffer()
     .then((data: any) => {
