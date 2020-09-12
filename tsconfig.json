@@ -11,7 +11,8 @@
       "paths": {
         "@img-processing/*": ["img-processing/*"],
         "@util/*": ["util/*"],
-        "@validate/*": ["validate/*"]
+        "@validate/*": ["validate/*"],
+        "@middleware/*": ["middleware/*"]
       },
       "noImplicitAny": true,
       "forceConsistentCasingInFileNames": true,
