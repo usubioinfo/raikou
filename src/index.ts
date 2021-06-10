@@ -47,6 +47,15 @@ if (cluster.isMaster) {
 
   app.get(`${apiPrefix}/image/raw/:imgName(*)`, processRawImg);
 
+  app.get(`${apiPrefix}/header-img`, (req, res, next) => {
+    const date = new Date();
+    if (date.getMonth() <= 1 || date.getMonth() >= 10) {
+      return res.sendFile(`${process.env.IMG_PATH}/bioinfo/usuwinter.jpeg`);
+    }
+
+    return res.sendFile(`${process.env.IMG_PATH}/bioinfo/ususpring6.jpg`);
+  });
+
   app.listen(process.env.PORT, () => {
     console.log('\nRaikou started in mode \'' + process.env.NODE_ENV + '\'');
     console.log('TLS/HTTPS is off.');
