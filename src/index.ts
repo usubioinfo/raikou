@@ -47,6 +47,10 @@ if (cluster.isMaster) {
 
   app.get(`${apiPrefix}/image/raw/:imgName(*)`, processRawImg);
 
+  app.get(`${apiPrefix}/image/:imgName(*)`, (req, res, next) => {
+    return res.sendFile(`${process.env.IMG_PATH}/${req.params.imgName}`);
+  });
+
   app.get(`${apiPrefix}/header-img`, (req, res, next) => {
     const date = new Date();
     if (date.getMonth() <= 1 || date.getMonth() >= 10) {
