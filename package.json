@@ -8,7 +8,8 @@
     "start": "ts-node src/index.ts",
     "prod": "NODE_ENV=PRODUCTION ts-node src/index.ts",
     "dev": "NODE_ENV=DEVTEST ts-node src/index.ts",
-    "local": "NODE_ENV=LOCAL tsnd --respawn src/index.ts"
+    "local": "NODE_ENV=LOCAL tsnd --respawn src/index.ts",
+    "update": "git pull origin master && npm i && pm2 restart raikou1"
   },
   "author": "Shelby McCowan",
   "license": "ISC",
