@@ -21,9 +21,9 @@ export const getFilesInDir = async (req: Request, res: Response) => {
     const stat = await fs.lstat(`${filePath}/${file}`);
 
     if (stat.isFile()) {
-      files.push({fileName: `/image/${req.params.filePath}/${file}`.replace(/\/\//, '/'), type: 'file'});
+      files.push({filePath: `/image/${req.params.filePath}/${file}`.replace(/\/\//, '/'), type: 'file', name: file});
     } else if (stat.isDirectory()) {
-      files.push({fileName: `/dir/${req.params.filePath}/${file}`.replace(/\/\//, '/'), type: 'directory'})
+      files.push({filePath: `/dir/${req.params.filePath}/${file}`.replace(/\/\//, '/'), type: 'directory', name: file})
     } else {
       console.log('error');
     }
