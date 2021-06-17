@@ -5,7 +5,7 @@ export const getFilesInDir = async (req: Request, res: Response) => {
 
   const basePath = process.env.IMG_PATH as string;
 
-  const filePath = `${basePath}/${req.params.imgName}`;
+  const filePath = `${basePath}/${req.params.filePath}`;
 
   let results: string[] = [];
 
@@ -21,9 +21,9 @@ export const getFilesInDir = async (req: Request, res: Response) => {
     const stat = await fs.lstat(`${filePath}/${file}`);
 
     if (stat.isFile()) {
-      files.push({fileName: file, type: 'file'});
+      files.push({fileName: `/image/${req.params.filePath}/${file}`.replace(/\/\//, '/'), type: 'file'});
     } else if (stat.isDirectory()) {
-      files.push({fileName: file, type: 'directory'})
+      files.push({fileName: `/dir/${req.params.filePath}/${file}`.replace(/\/\//, '/'), type: 'directory'})
     } else {
       console.log('error');
     }

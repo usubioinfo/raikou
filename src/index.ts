@@ -46,7 +46,7 @@ if (cluster.isMaster) {
   app.get(`${apiPrefix}/image/aspect/:imgName(*)`, processAspectImg);
 
   app.get(`${apiPrefix}/test`, getFilesInDir);
-  app.get(`${apiPrefix}/dir/:imgName(*)`, getFilesInDir);
+  app.get(`${apiPrefix}/dir/:filePath(*)`, getFilesInDir);
 
   app.get(`${apiPrefix}/image/raw/:imgName(*)`, processRawImg);
 
