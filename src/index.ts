@@ -5,12 +5,12 @@ import { Request, Response } from 'express';
 import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
-import sharp from 'sharp';
 
 import cluster from 'cluster';
 
 import { processRawImg } from '@img-processing/raw';
 import { processAspectImg } from '@img-processing/aspect';
+import { getFilesInDir } from './getfolder';
 
 require('dotenv-defaults/config');
 
@@ -44,6 +44,9 @@ if (cluster.isMaster) {
   // a = anchor, w = width, h = height
 
   app.get(`${apiPrefix}/image/aspect/:imgName(*)`, processAspectImg);
+
+  app.get(`${apiPrefix}/test`, getFilesInDir);
+  app.get(`${apiPrefix}/dir/:imgName(*)`, getFilesInDir);
 
   app.get(`${apiPrefix}/image/raw/:imgName(*)`, processRawImg);
 
