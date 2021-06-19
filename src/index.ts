@@ -4,7 +4,6 @@ require('tsconfig-paths/register');
 import { Request, Response } from 'express';
 import express from 'express';
 import bodyParser from 'body-parser';
-import helmet from 'helmet';
 
 import cluster from 'cluster';
 
@@ -37,7 +36,7 @@ if (cluster.isMaster) {
   const app = express();
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
-  app.use(helmet());
+  // app.use(helmet());
 
   const apiPrefix = process.env.API_PREFIX;
 
