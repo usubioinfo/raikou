@@ -16,6 +16,7 @@ export const getFilesInDir = async (req: Request, res: Response) => {
   }
 
   let files: any[] = [];
+  let dirs: any[] = [];
 
   for (let file of results) {
     const stat = await fs.lstat(`${filePath}/${file}`);
@@ -23,7 +24,7 @@ export const getFilesInDir = async (req: Request, res: Response) => {
     if (stat.isFile()) {
       files.push({filePath: `/image/${req.params.filePath}/${file}`.replace(/\/\//, '/'), type: 'file', name: file});
     } else if (stat.isDirectory()) {
-      files.push({filePath: `/dir/${req.params.filePath}/${file}`.replace(/\/\//, '/'), type: 'directory', name: file})
+      dirs.push({filePath: `/dir/${req.params.filePath}/${file}`.replace(/\/\//, '/'), type: 'directory', name: file})
     } else {
       console.log('error');
     }
@@ -31,5 +32,5 @@ export const getFilesInDir = async (req: Request, res: Response) => {
 
   console.log(results);
 
-  return res.json({success: true, results: files});
+  return res.json({success: true, files: files, directories: dirs});
 }
