@@ -1,7 +1,7 @@
 #!/bin/bash
 # set the var to be the container
 CONTAINER=raikou
-FLAGS='-d -p 3200:3200 -v /opt/webassets:/opt/webassets --network docker-br0 --ip 172.20.0.5 --restart unless-stopped'
+FLAGS='-d -p 3200:3200 -v /opt/webassets:/opt/webassets --restart unless-stopped'
 MYMAX=0
 # stop the containers
 for n in $(docker images $CONTAINER --format "{{.Tag}}")
